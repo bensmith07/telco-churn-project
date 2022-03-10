@@ -17,23 +17,18 @@ We will analyze the attributes of customers who have been more or less likely to
 
 ### Initial Questions
 
-Does demographic information affect churn rate? If so, improvements aimed at better engaging specific demographic populations may be warranted. 
+- Does demographic information affect churn rate? If so, improvements aimed at better engaging specific demographic populations may be warranted. 
 
-Do customers who churn have higher average monthly charges than those who don't? If so, price incentives may be an effective retention strategy. 
+- Do customers who churn have higher average monthly charges than those who don't? If so, price incentives may be an effective retention strategy. 
 
-What month (or range of months) are customers most likely to churn? Optimizing for customer satisfaction in these months might get them "over the hump" and turn them into long-term loyal customers. 
+- What month (or range of months) are customers most likely to churn? Optimizing for customer satisfaction in these months might get them "over the hump" and turn them into long-term loyal customers. 
 
-    Does this change when controlling for contract type?
+  - Does this change when controlling for contract type?
 
-Is there a service associated with more churn than expected? If so, further investigation might uncover dissatisfaction with the service itself. 
+- Is there a service associated with more churn than expected? If so, further investigation might uncover dissatisfaction with the service itself. 
 
 
 ### Data Dictionary
-
-*Your readme should include a data dictionary, which is important to provide in order to define and disambiguate each of the variables you are analyzing.*
-
-For example: 
-
 
 | Variable          | Meaning                                                   | values          |
 | -----------       | -----------                                               | -----------     |
@@ -62,14 +57,9 @@ For example:
 
 ### Steps to Reproduce
 
-*Your readme should include useful and adequate instructions for reproducing your analysis and final report.*
-
-For example: 
-
-1. You will need an env.py file that contains the hostname, username and password of the mySQL database that contains the titanic_db.passengers table. Store that env file locally in the repository. 
-2. clone my repo (including the acquireTitanic.py and prepare.Titanic.py) (confirm .gitignore is hiding your env.py file)
+1. You will need an env.py file that contains the hostname, username and password of the mySQL database that contains the titanic_db.passengers table. The env.py should also contain a function named get_db_url() that establishes the string value of the database url. Store that env file locally in the repository. 
+2. clone my repo (including the acquire.py, prepare.py, explore.py, and model.py modules) (confirm .gitignore is hiding your env.py file)
 3. libraries used are pandas, matplotlib, seaborn, numpy, sklearn. 
-4. you should be able to run survival_report. 
 
 ### The Plan
 

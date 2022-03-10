@@ -35,10 +35,17 @@ Is there a service associated with more churn than expected? If so, further inve
 For example: 
 
 
-| Variable          | Meaning                                   | values                 |
-| -----------       | -----------                               | -----------            |
-| gender            | customer gender                           | male, female           |
-| senior_citizen    | whether a customer is a senior citizen    | 0 (no), 1 (yes)        |
+| Variable          | Meaning                                                 | values          |
+| -----------       | -----------                                             | -----------     |
+| gender            | customer gender                                         | male, female    |
+| senior_citizen    | whether a customer is a senior citizen                  | 0 (no), 1 (yes) |
+| partner           | whether a customer has a partner                        | Yes, No         |
+| dependents        | whether a customer has dependents                       | Yes, No         |
+| tenure_months     | # of months a customer has been with Telco (truncated)  | 1 - 72          |
+| tenure_quarters   | customer tenure in quarters (rounded up)                | 1 - 24          |
+| tenure_years      | customer tenure in years (rounded up)                   | 1 - 6           |
+| phone_service     | whether a customer subscribes to phone service          | Yes, No                           |
+| multiple_lines    | whether a customer subscribes to multiple phone lines   | Yes, No, No phone service         |
 
 
 ### Steps to Reproduce

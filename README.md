@@ -35,8 +35,9 @@ Is there a service associated with more churn than expected? If so, further inve
 For example: 
 
 
-| Variable          | Meaning                                                 | values          |
-| -----------       | -----------                                             | -----------     |
+| Variable          | Meaning                                                   | values          |
+| -----------       | -----------                                               | -----------     |
+| churn             | whether a customer has left the company (target variable) | Yes, No
 | gender            | customer gender                                         | male, female    |
 | senior_citizen    | whether a customer is a senior citizen                  | 0 (no), 1 (yes) |
 | partner           | whether a customer has a partner                        | Yes, No         |
@@ -46,6 +47,17 @@ For example:
 | tenure_years      | customer tenure in years (rounded up)                   | 1 - 6           |
 | phone_service     | whether a customer subscribes to phone service          | Yes, No                           |
 | multiple_lines    | whether a customer subscribes to multiple phone lines   | Yes, No, No phone service         |
+| online_security   | whether a customer subscribes to online security  | Yes, No, No internet service |
+| online_backup     | whether a customer subscribes to online backup  | Yes, No, No internet service  |
+| device_protection | whether a customer subscribes to device protection  | Yes, No, No internet service  |
+| tech_support      | whether a customer subscribes to tech support | Yes, No, No internet service  |
+| streaming_tv      | whether a customer subscribes to television streaming | Yes, No, No internet service  |
+| streaming_movies  | whether a customer subscribes to movie streaming services | Yes, No, No internet service  |
+| paperless_billing | whether a customer has opted in to paperless billing  | Yes, No |
+| monthly_charges   | total amount in dollars the customer pays each month  | 18.25 - 118.75  |
+| contract_type     | duration of customer's current contract | Month-to-month, One-year, Two-year  |
+| internet_service_type | type of internet service to which a customer subscribes | DSL, Fiber optic, No internet service |
+| payment_type  | method of the customer's monthly payment  | Mailed check, Electronic check, Credit card (automatic), Bank transfer (automatic)  |
 
 
 ### Steps to Reproduce

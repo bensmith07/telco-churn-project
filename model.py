@@ -38,7 +38,7 @@ def get_best_model_results(model_results, metric_type='accuracy', n_models=3):
     It returns a dataframe of information about those models' performance in the tidy data format
     (as described above). 
 
-    This can be fed into the display_model_results function for convenient display formatting.
+    The resulting dataframe can be fed into the display_model_results function for convenient display formatting.
     '''
     # create an array of model numbers for the best performing models
     # by filtering the model_results dataframe for only validate scores for the given metric type
@@ -60,3 +60,17 @@ def get_best_model_results(model_results, metric_type='accuracy', n_models=3):
                                      | (model_results.model_number == best_models[2])]
 
     return best_model_results
+
+
+
+    def display_model_info(model_numbers):
+    '''
+    This function takes in a list of model numbers and displays all info from the model_info dataframe
+    for only those model numbers. 
+    Info in the model_info dataframe includes:
+    - model_number
+    - model_type (Decision Tree, Random Forest, KNN, or Logistic Regression)
+    - values for any hyperparamters passed as arguments to the model's classifier function 
+    '''
+        # use iloc to index the model_info dataframe for model numbers (corresponds to dataframe index)
+        return pd.DataFrame(model_info.iloc[model_numbers,:])

@@ -8,7 +8,8 @@ import scipy.stats as stats
 def univar_categorical(train):
 
     # define categorical columns
-    categorical_columns = list(train.dtypes[train.dtypes == 'object'].index)
+    categorical_columns = list(train.dtypes[train.dtypes == 'object'].drop(columns='customer_id').index)
+    categorical_columns.remove('customer_id')
 
     # for each of those columns
     for col in categorical_columns:
@@ -81,7 +82,7 @@ def multivar_1(train, target):
 def multivar_absolute_correlations(train):
 
     # create dataframe of correlation values for target variable
-    train_correlations = pd.DataFrame(train.corr().enc_churn.sort_values())
+    train_correlations = pd.DataFrame(train.drop(columns='customer_id').corr().enc_churn.sort_values())
     # use the absolute values of the correlations in a new dataframe
     train_corr_abs = pd.DataFrame(train_correlations.apply(lambda corr: abs(corr).sort_values(ascending=False)))
 

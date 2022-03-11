@@ -13,14 +13,17 @@ def prep_telco_1(df):
     # clean up total_charges column and cast as float
     df['total_charges'] = df.total_charges.replace(' ', np.nan).astype(float)
 
+    # drop rows with any null values
+    df = df.dropna()
+
     # removing brand new customers
     df = df[df.tenure != 0]
 
-    # drop any unneccessary, unhelpful, or duplicated columns. 
+    # drop any unnecessary, unhelpful, or duplicated columns. 
     # type_id columns are simply foreign key columns that have corresponding string values
     # customer_id is a primary key that is not useful for our analysis
     # total_charges is essentially a function of monthly_charges * tenure
-    df = df.drop(columns=['payment_type_id', 'internet_service_type_id', 'contract_type_id', 'customer_id', 'total_charges'])
+    df = df.drop(columns=['payment_type_id', 'internet_service_type_id', 'contract_type_id', 'total_charges'])
 
     # change senior citizen to object types Yes/No for exploration purposes
     df['senior_citizen'] = df.senior_citizen.map({1: 'Yes', 0: 'No'})
@@ -42,7 +45,8 @@ def prep_telco_1(df):
 def prep_telco_2(df):
 
     # define categorical columns
-    categorical_columns = list(df.dtypes[df.dtypes == 'object'].index)
+    categorical_columns = list(df.dtypes[df.dtypes == 'object'].drop(columns='customer_id').index)
+    categorical_columns.remove('customer_id')
 
     # one-hot encoding those columns
     for col in categorical_columns:

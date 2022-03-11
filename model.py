@@ -63,7 +63,7 @@ def get_best_model_results(model_results, metric_type='accuracy', n_models=3):
 
 
 
-    def display_model_info(model_numbers):
+def display_model_info(model_info, model_numbers):
     '''
     This function takes in a list of model numbers and displays all info from the model_info dataframe
     for only those model numbers. 
@@ -72,5 +72,5 @@ def get_best_model_results(model_results, metric_type='accuracy', n_models=3):
     - model_type (Decision Tree, Random Forest, KNN, or Logistic Regression)
     - values for any hyperparamters passed as arguments to the model's classifier function 
     '''
-        # use iloc to index the model_info dataframe for model numbers (corresponds to dataframe index)
-        return pd.DataFrame(model_info.iloc[model_numbers,:])
+    # use iloc to index the model_info dataframe for model numbers (corresponds to dataframe index)
+    return pd.DataFrame(model_info.iloc[model_numbers,:])

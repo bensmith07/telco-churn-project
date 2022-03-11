@@ -194,36 +194,13 @@ def hypothesis_test_monthly_charges(train):
     train_churned = train[train.churn == 'Yes']
     train_not_churned = train[train.churn == 'No']
 
-    # conduct the test and display results
-
     # Mann Whitney U test
-
-    # establish hypothesis and alpha level
-    H0 = f'mean monthly_charges for customers who have churned <= mean monthly charges for those who have not churned'
-    H1 = f'mean monthly_charges for customers who have churned > mean monthly charges for those who have not churned'
-    alpha = .05
-
     # conduct the test
     u, p = stats.mannwhitneyu(train_churned.monthly_charges, train_not_churned.monthly_charges, alternative='greater')
 
     # display test info and results
-    line_break = ('\n' + '=' * 102 + '\n')
     print(f'MANN-WHITNEY U TEST FOR: MONTHLY_CHARGES')
-    print()
-    print(f'H0: {H0}')
-    print(f'H1: {H1}')
     print()
     print(f'u = {u}')
     print(f'p = {p.round(4)}')
     print()
-    # if p < alpha:
-    #     print('RESULT: Reject H0\n')
-    #     print(f'Since p < alpha:\n')
-    #     print(f'we reject the null hypothesis that:\n\n\t{H0}\n')
-    #     print(f'and we proceed under the assumption that:\n\n\t{H1}')
-    # elif p > alpha:
-    #     print('RESULT: Fail to Reject H0\n')
-    #     print(f'Since p > alpha:\n')
-    #     print(f'we fail to reject the null hypothesis\n')
-    #     print(f'and we proceed under the assumption that:\n\n\t{H0}')
-    # print(line_break)

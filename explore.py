@@ -205,3 +205,21 @@ def hypothesis_test_monthly_charges(train):
     print(f'u = {u}')
     print(f'p = {p.round(4)}')
     print()
+
+
+def plot_overall_churn():
+    '''
+    This function displays a pie chart created in matplotlib.pyplot, showing
+    the overall percentage of customers who have churned vs. those who have not. 
+    '''
+    # create the pie chart, using a count (len()) of all customers who have churned
+    # and a count of those who have not
+    plt.pie([len(df[df.churn == 'Yes']), len(df[df.churn == 'No'])], 
+            # add a label for the churn == Yes category
+            labels=['Churned', None], 
+            # specify slice colors
+            colors=['red', 'lightblue'],
+            # specify percentage formatting
+            autopct='%.0f%%')
+    # display the chart
+    plt.show()

@@ -207,7 +207,7 @@ def hypothesis_test_monthly_charges(train):
     print()
 
 
-def plot_overall_churn():
+def plot_overall_churn(df):
     '''
     This function displays a pie chart created in matplotlib.pyplot, showing
     the overall percentage of customers who have churned vs. those who have not. 
@@ -222,4 +222,66 @@ def plot_overall_churn():
             # specify percentage formatting
             autopct='%.0f%%')
     # display the chart
+    plt.show()
+
+
+def churn_rate_by_gender(train):
+    churn_rates = (pd.DataFrame(train.groupby(by='gender').mean().enc_churn)
+                   .reset_index()
+                   .sort_values(by='enc_churn'))
+    sns.barplot(data = churn_rates,
+                x = 'gender', 
+                y = 'enc_churn')
+    plt.axhline(train.enc_churn.mean(), 
+                    ls='--', 
+                    color='black')
+    plt.show()
+
+
+def churn_rate_by_senior(train):
+    churn_rates = (pd.DataFrame(train.groupby(by='senior_citizen').mean().enc_churn)
+                   .reset_index()
+                   .sort_values(by='enc_churn'))
+    sns.barplot(data = churn_rates,
+                x = 'senior_citizen', 
+                y = 'enc_churn')
+    plt.axhline(train.enc_churn.mean(), 
+                    ls='--', 
+                    color='black')
+    plt.show()
+
+
+def churn_rate_by_partner(train):
+    churn_rates = (pd.DataFrame(train.groupby(by='partner').mean().enc_churn)
+                   .reset_index()
+                   .sort_values(by='enc_churn'))
+    sns.barplot(data = churn_rates,
+                x = 'partner', 
+                y = 'enc_churn')
+    plt.axhline(train.enc_churn.mean(), 
+                    ls='--', 
+                    color='black')
+    plt.show()
+
+def churn_rate_by_dependents(train):
+    churn_rates = (pd.DataFrame(train.groupby(by='dependents').mean().enc_churn)
+                    .reset_index()
+                    .sort_values(by='enc_churn'))
+    sns.barplot(data = churn_rates,
+                x = 'dependents', 
+                y = 'enc_churn')
+    plt.axhline(train.enc_churn.mean(), 
+                    ls='--', 
+                    color='black')
+    plt.show()
+
+def monthly_charges_by_churn(train):
+    charges = (pd.DataFrame(train.groupby(by='churn').monthly_charges.mean())
+                   .reset_index())
+    sns.barplot(data = charges,
+                x = 'churn', 
+                y = 'monthly_charges')
+    plt.axhline(train.monthly_charges.mean(), 
+                    ls='--', 
+                    color='black')
     plt.show()

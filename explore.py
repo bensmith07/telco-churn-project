@@ -95,7 +95,39 @@ def multivar_absolute_correlations(train):
     train_correlations = pd.DataFrame(train.drop(columns='customer_id').corr().enc_churn.sort_values())
     # use the absolute values of the correlations in a new dataframe
     train_corr_abs = pd.DataFrame(train_correlations.apply(lambda corr: abs(corr).sort_values(ascending=False)))
-
+    # rename columns and features index for display
+    train_corr_abs.columns = ['Correlation']
+    train_corr_abs.index = ['Churn', 
+                            'Tenure in Months', 
+                            'Tenure Quarters', 
+                            'Tenure Years', 
+                            'Payment Type (Electronic Check)', 
+                            'Internet Service Type (Fiber Optic)', 
+                            'Contract Type (Two-Year)', 
+                            'Internet Service Type (None)', 
+                            'Streaming Movies (No Internet Service)',
+                            'Streaming TV (No Internet Service)', 
+                            'Tech Support (No Internet Service)', 
+                            'Online Backup (No Internet Service)',
+                            'Online Security (No Internet Service)', 
+                            'Device Protection (No Internet Service)',
+                            'Monthly Charges', 'Contract Type (One Year)', 
+                            'Paperless Billing',
+                            'Tech Support', 
+                            'Senior Citizen', 
+                            'Partner', 
+                            'Dependents', 
+                            'Online Security', 
+                            'Payment Type (Credit Card - Automatic)', 
+                            'Payment Type (Mailed Check)', 
+                            'Online Backup', 
+                            'Streaming TV', 
+                            'Device Protection', 
+                            'Streaming Movies', 
+                            'Multiple Lines', 
+                            'Multiple Lines (No Phone Service)',
+                            'Phone Service', 
+                            'Gender']
     return train_corr_abs
 
 def chi2_test(data_for_category1, data_for_category2, alpha=.05):
@@ -138,7 +170,7 @@ def when_customers_churn(train):
     '''
     for col in ['tenure_months', 'tenure_quarters', 'tenure_years']:
         print('=' * 50)
-        print(col.upper())
+        print('DISTRIBUTION OF ', col.upper())
 
         # display a histogram of tenure for customers who have churned
         sns.histplot(train[train.churn == 'Yes'][col], stat='proportion')
@@ -171,7 +203,7 @@ def when_customers_churn_by_contract_type(train):
     # for each category of contract type
     for group in [churned_1yr, churned_2yr, churned_monthly]:
         print('=' * 50)
-        print(group.contract_type.mode()[0])
+        print('DISTRIBUTION OF CHURN FOR ', group.contract_type.mode()[0].upper(), ' CONTRACT TYPES')
         
         # display a histogram of months of tenure for that group
         sns.histplot(group.tenure_months, stat='proportion')
@@ -202,6 +234,7 @@ def churn_by_int_service_type(train):
     plt.axhline(train.enc_churn.mean(), 
                     ls='--', 
                     color='black')
+    plt.title('Churn by Internet Service Type')
     plt.show()
 
 #### hypothesis test 1: MANN WHITNEY U TEST FOR MONTHLY CHARGES
@@ -243,6 +276,7 @@ def plot_overall_churn(df):
             # specify percentage formatting
             autopct='%.0f%%')
     # display the chart
+    plt.title('Overall Churn Rate')
     plt.show()
 
 
@@ -262,6 +296,7 @@ def churn_rate_by_gender(train):
     plt.axhline(train.enc_churn.mean(), 
                     ls='--', 
                     color='black')
+    plt.title('Churn Rate by Gender')
     plt.show()
 
 
@@ -281,6 +316,7 @@ def churn_rate_by_senior(train):
     plt.axhline(train.enc_churn.mean(), 
                     ls='--', 
                     color='black')
+    plt.title('Churn Rate by Senior Citizen Status')
     plt.show()
 
 
@@ -299,6 +335,7 @@ def churn_rate_by_partner(train):
     plt.axhline(train.enc_churn.mean(), 
                     ls='--', 
                     color='black')
+    plt.title('Churn Rate by Partner Status')
     plt.show()
 
 def churn_rate_by_dependents(train):
@@ -316,6 +353,7 @@ def churn_rate_by_dependents(train):
     plt.axhline(train.enc_churn.mean(), 
                     ls='--', 
                     color='black')
+    plt.title('Churn Rate by Dependents Status')
     plt.show()
 
 def monthly_charges_by_churn(train):
@@ -333,4 +371,5 @@ def monthly_charges_by_churn(train):
     plt.axhline(train.monthly_charges.mean(), 
                     ls='--', 
                     color='black')
+    plt.title('Average Monthly Charges by Churn Status')
     plt.show()

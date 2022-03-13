@@ -99,8 +99,8 @@ def train_test_validate_split(df, target, test_size=.2, validate_size=.3, random
     
     The function also prints the size of each sample.
     '''
-    train, test = train_test_split(df, test_size=.2, random_state=42, stratify=df[target])
-    train, validate = train_test_split(train, test_size=.3, random_state=42, stratify=train[target])
+    train, test = train_test_split(df, test_size=test_size, random_state=random_state, stratify=df[target])
+    train, validate = train_test_split(train, test_size=validate_size, random_state=random_state, stratify=train[target])
     
     print(f'train\t n = {train.shape[0]}')
     print(f'test\t n = {test.shape[0]}')

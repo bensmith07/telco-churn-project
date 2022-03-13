@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.stats as stats
 
-#### explore univariate categorical
 def univar_categorical(train):
-
+    '''
+    This takes in a dataframe representing a train sample and displays frequency tables and barplots 
+    for each categorical variable in the Telco Customer dataset. 
+    '''
     # define categorical columns
     categorical_columns = list(train.dtypes[train.dtypes == 'object'].drop(columns='customer_id').index)
     categorical_columns.remove('customer_id')
@@ -24,9 +26,12 @@ def univar_categorical(train):
         plt.title(f'{col}_counts')
         plt.show()
 
-#### explore univariate quantititave
 def univar_quantitative(train):
-
+    '''
+    This function takes in the train sample dataframe from the Telco customer dataset and 
+    displays a histogram, a boxplot, and summary statistics for the distribution of each of 
+    the quantitative variables. 
+    '''
     # define quantitative columns
     quantitative_columns = ['monthly_charges', 'tenure_months']
 
@@ -44,10 +49,12 @@ def univar_quantitative(train):
             # display the summary statistics of the distribution
             print(pd.DataFrame(train[col].describe()))
 
-
-#### explore bivariate quantitative
 def bivar_quantitative(train, target):
-
+    '''
+    This function takes in the train sample dataframe from the Telco customer dataset and displays
+    a barplot of the distribution of each quantitative variable, grouped by each category of the 
+    target variable, with a horizontal line representing the overall average value. 
+    '''
     # define quantitative columns
     quantitative_columns = ['monthly_charges', 'tenure_months']
 
@@ -64,10 +71,11 @@ def bivar_quantitative(train, target):
         plt.title(col, fontsize=14)
         plt.show()
 
-#### explore multivariate 1
-
 def multivar_1(train, target):
-
+    '''
+    This function takes in the train sample dataframe from the Telco customer dataset and a target variable lable,
+    then displays a seaborn pairplot using each of the quantitative variables in the dataset. 
+    '''
     # define quantitative columns
     quantitative_columns = ['monthly_charges', 'tenure_months']
 
@@ -76,11 +84,13 @@ def multivar_1(train, target):
     g = sns.pairplot(train[quantitative_columns + [target]], hue=target)
     plt.show()
 
-
-### explore correlations
-
 def multivar_absolute_correlations(train):
-
+    '''
+    This function takes in the train sample dataframe from the Telco customer dataset then returns a dataframe 
+    showing the absolute correlation values of each variable with the target variable churn. The dataframe is 
+    returned, rather than printed, so that it can be displayed with visually appealing format in jupyter notebook
+    by calling the function without a print statement or other assignment. 
+    '''
     # create dataframe of correlation values for target variable
     train_correlations = pd.DataFrame(train.drop(columns='customer_id').corr().enc_churn.sort_values())
     # use the absolute values of the correlations in a new dataframe
@@ -88,13 +98,14 @@ def multivar_absolute_correlations(train):
 
     return train_corr_abs
 
-
-#### chi2_test
-
-# defining a function to encapsulate repeated code for chi2 tests:
-
 def chi2_test(data_for_category1, data_for_category2, alpha=.05):
-    
+    '''
+    This function takes in two array-like objects of categorical data (two columns
+    of a pandas dataframe is the intended use case) and uses scipy.stats to 
+    conduct a chi^2 test for independence. 
+    It prints crosstabs of the observed and expected values, and determines whether to 
+    reject the null hypothesis based on a given value of alpha. 
+    '''
     # create dataframe of observed values
     observed = pd.crosstab(data_for_category1, data_for_category2)
     
@@ -119,11 +130,12 @@ def chi2_test(data_for_category1, data_for_category2, alpha=.05):
     else: 
         print('\nFail to Reject H0')
 
-
-#### when are customers most likely to churn
-
 def when_customers_churn(train):
-
+    '''
+    This function takes in the train sample dataframe, filters for only customers who have churned, 
+    and displays information about tenure distribution in months, quarters, and years, 
+    using histograms, boxplots, and summary statistics.
+    '''
     for col in ['tenure_months', 'tenure_quarters', 'tenure_years']:
         print('=' * 50)
         print(col.upper())
@@ -145,6 +157,11 @@ def when_customers_churn(train):
 #### when are customers most likely to churn - by contract type
 
 def when_customers_churn_by_contract_type(train):
+    '''
+    This function takes in the train dataframe sample, separates the sample by contract type, filtering
+    for only customers who have churned, then displays information about the distribution of tenure in 
+    months for each contract type.
+    '''
 
     # separate the data by contract_type 
     churned_1yr = train[(train.contract_type == 'One year') & (train.churn == 'Yes')]
@@ -190,7 +207,11 @@ def churn_by_int_service_type(train):
 #### hypothesis test 1: MANN WHITNEY U TEST FOR MONTHLY CHARGES
 
 def hypothesis_test_monthly_charges(train):
-
+    '''
+    This function takes in the train dataset, then runs a Mann-Whitney U test to test average
+    monthly charges for customers who have churned against average monthly charges for customers
+    who have not churned. It then displays the test statistic and p-alue. 
+    '''
     # get the data
     train_churned = train[train.churn == 'Yes']
     train_not_churned = train[train.churn == 'No']
@@ -226,6 +247,12 @@ def plot_overall_churn(df):
 
 
 def churn_rate_by_gender(train):
+    '''
+    This function takes in the train sample dataframe, then creates a dataframe that includes
+    the rate of churn for each gender of customer, and displays those rates in comparison to 
+    each other using a seaborn barplot, with the overall average churn rate represented as a 
+    dashed horizontal line. 
+    '''
     churn_rates = (pd.DataFrame(train.groupby(by='gender').mean().enc_churn)
                    .reset_index()
                    .sort_values(by='enc_churn'))
@@ -239,6 +266,12 @@ def churn_rate_by_gender(train):
 
 
 def churn_rate_by_senior(train):
+    '''
+    This function takes in the train sample dataframe, then creates a dataframe that includes
+    the rate of churn for each senior citizen status, and displays those rates in comparison to 
+    each other using a seaborn barplot, with the overall average churn rate represented as a 
+    dashed horizontal line. 
+    '''
     churn_rates = (pd.DataFrame(train.groupby(by='senior_citizen').mean().enc_churn)
                    .reset_index()
                    .sort_values(by='enc_churn'))
@@ -252,6 +285,11 @@ def churn_rate_by_senior(train):
 
 
 def churn_rate_by_partner(train):
+    '''This function takes in the train sample dataframe, then creates a dataframe that includes
+    the rate of churn for each partner status, and displays those rates in comparison to 
+    each other using a seaborn barplot, with the overall average churn rate represented as a 
+    dashed horizontal line. 
+    '''
     churn_rates = (pd.DataFrame(train.groupby(by='partner').mean().enc_churn)
                    .reset_index()
                    .sort_values(by='enc_churn'))
@@ -264,6 +302,11 @@ def churn_rate_by_partner(train):
     plt.show()
 
 def churn_rate_by_dependents(train):
+    '''This function takes in the train sample dataframe, then creates a dataframe that includes
+    the rate of churn for each status of dependants, and displays those rates in comparison to 
+    each other using a seaborn barplot, with the overall average churn rate represented as a 
+    dashed horizontal line. 
+    '''
     churn_rates = (pd.DataFrame(train.groupby(by='dependents').mean().enc_churn)
                     .reset_index()
                     .sort_values(by='enc_churn'))
@@ -276,6 +319,12 @@ def churn_rate_by_dependents(train):
     plt.show()
 
 def monthly_charges_by_churn(train):
+    '''
+    This function takes in the train sample dataframe, creates a dataframe that includes 
+    average monthly_charges for customers who have churned and average monthly charges for 
+    customers who have not churned, then displays those averages in comparison to each other
+    using a seaborn barplot, with the overall average charges represented by a dashed horizontal line. 
+    '''
     charges = (pd.DataFrame(train.groupby(by='churn').monthly_charges.mean())
                    .reset_index())
     sns.barplot(data = charges,

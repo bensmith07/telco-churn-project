@@ -4,6 +4,14 @@ from env import get_db_url, user, password, host
 
 # define a function for obtaining Telco Customer Data
 def get_telco_data():
+    '''
+    This function acquires TelCo customer data from the Codeup MySQL database, or from a .csv 
+    file in the local directory. If a local .csv exists, the .csv is imported using pandas. If
+    there is no local file, data.codeup.com is accessed with the appropriate credentials, and the 
+    data is obtained via SQL query and then imported via pandas. The SQL query joins all necessary
+    tables for customer data. After obtaining from the database, the pandas dataframe is cached to 
+    a local CSV for future use. The data is returned from the function as a pandas dataframe. 
+    '''
     
     filename = 'telco_churn.csv'
     

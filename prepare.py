@@ -6,6 +6,23 @@ from sklearn.model_selection import train_test_split
 #### prep 1
 
 def prep_telco_1(df):
+    '''
+    This function returns a cleaned and prepped version of the Telco Customer DataFrame by accomplishing the following: 
+    - drops any duplicate rows that may be present, so as not to count a customer twice
+    - fixes a formatting issue in the total_charges column by replacing white space characters with nulls
+    - removes customers with a 0 value for tenure (brand new customers who have not had an opportunity to churn are not relevant to our study)
+        - note: this also removed rows with missing values in the total_charges column (there were no other missing values in the dataset)
+    - drops unnecessary or unhelpful columns which can provide no additional predictive value, including:
+        - payment_type_id
+        - internet_service_type_id
+        - contract_type id
+        - customer_id
+        - total_charges (because it is merely a function of monthly charges and tenure)
+    - changes values in the senior_citizen column to Yes/No instead of 1/0 for readability
+    - creates new features, including: 
+        - tenure_quarters, which represents which quarter of service a customer is currently in (or was in at the time of churn). 
+        - tenure_years, which represents which year of service a customer is currently in (or was in at the time of churn). 
+    '''
 
     # drop duplicate rows, if present
     df = df.drop_duplicates()
@@ -43,7 +60,11 @@ def prep_telco_1(df):
 #### prep 2
 
 def prep_telco_2(df):
-
+    '''
+    This function takes in the Telco Customer dataframe, defines categorical columns as any column with an object data type 
+    (except for customer_id), then adds encoded versions of  those columns for machine learning using one-hot encoding via the pandas 
+    get_dummies function. Then returns the resulting dataframe. 
+    '''
     # define categorical columns
     categorical_columns = list(df.dtypes[df.dtypes == 'object'].drop(columns='customer_id').index)
     categorical_columns.remove('customer_id')
@@ -70,7 +91,14 @@ def prep_telco_2(df):
 #### train, test, validate split
 
 def train_test_validate_split(df, target, test_size=.2, validate_size=.3, random_state=42):
+    '''
+    This function takes in a dataframe and target variable label, then splits that dataframe into three separate samples
+    called train, test, and validate, for use in machine learning modeling. The samples are stratified by the target variable.
+
+    Three dataframes are returned in the following order: train, test, validate. 
     
+    The function also prints the size of each sample.
+    '''
     train, test = train_test_split(df, test_size=.2, random_state=42, stratify=df[target])
     train, validate = train_test_split(train, test_size=.3, random_state=42, stratify=train[target])
     

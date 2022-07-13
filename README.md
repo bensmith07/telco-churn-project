@@ -1,12 +1,10 @@
 # Predicting Customer Churn at Telco
 
+Slide-show presentation can be found [here](https://docs.google.com/presentation/d/1mfJ1A33gY2pEx_aYGcE1nnObuJt1HJwH4S-1MkmMm80/edit#slide=id.p).
+
 ## About the Project 
 
 We will conduct an in depth analysis of customer data for the hypothetical telecommunications company, TelCo. We will use exploratory analysis techniques to identify the key drivers of customer churn, then use machine learning algorithms to create a model capable of predicting whether or not a customer will churn. 
-
-### Project Goals
-
-By identifying key drivers of customer churn and creating a predictive model, the company can focus resources on those customers most likey to churn, proactively engaging them in ways that make them more likely to continue using Telco services. 
 
 ### Project Description
 
@@ -14,6 +12,9 @@ Telco aims to provide an excellent product at a fair price, and to maximize cust
 
 We will analyze the attributes of customers who have been more or less likely to churn, develop a model for predicting churn based on those atributes, and leave with both recommendations for future passengers and predictions of churn for a list of current customers (delivered via .csv)
 
+### Project Goals
+
+By identifying key drivers of customer churn and creating a predictive model, the company can focus resources on those customers most likey to churn, proactively engaging them in ways that make them more likely to continue using Telco services. 
 
 ### Initial Questions
 
